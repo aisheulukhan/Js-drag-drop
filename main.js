@@ -1,69 +1,64 @@
-// var dropTarget = document.querySelector(".wrapper");
-// var draggables =  document.querySelector(".foto");
 
-// for (let i = 0; i < draggables.length; i++) {
-//     draggables[i].addEventListener("dragstart",function(ev){
-//         ev.dataTransfer.setData("srcId",ev.target.id)
-//     });
-// }
-
-// dropTarget.addEventListener("dragover",function(ev){
-//     ev.preventDefault();
-// });
-
-// dropTarget.addEventListener("drop",function(ev){
-//     ev.preventDefault();
-//     let target = ev.target;
-//     let srcId = ev.dataTransfer.getData("srcId");
-
-//     let droppable = target.classList.contains("box");
-//     if (droppable) {
-        
-//         target.appendChild(document.getElementById(srcId));
-//     }
-
-// });
-
-var p = document.getElementsByTagName('p');
-var choice = document.getElementsByClassName('choice');
+let alma = document.getElementById("alma");
+let armud = document.getElementById("armud");
+let ciyelek = document.getElementById("ciyelek");
+let biber = document.getElementById("biber");
+let kok = document.getElementById("kok");
+let pomidor = document.getElementById("pomidor");
 
 var dragItem = null;
 
-for(var i of p){
-    i.addEventListener('dragstart',dragStart);
-    i.addEventListener('dragend',dragEnd);
-}
+alma.addEventListener("dragstart",function(e){
+    e.dataTransfer.setData("fruitsId",this.id);
+})
+armud.addEventListener("dragstart",function(e){
+    e.dataTransfer.setData("fruitsId",this.id);
+})
 
-function dragStart(){
-    dragItem =  this;
-    setTimeout(()=> this.style.display = "none",0);
-}
-function dragEnd(){
-    setTimeout(()=> this.style.display = "block",0);
-    dragItem =  null;
-}
+ciyelek.addEventListener("dragstart",function(e){
+    e.dataTransfer.setData("fruitsId",this.id);
+})
 
-for(j of choice){
-    j.addEventListener('dragover',dragOver);
-    j.addEventListener('dragenter',dragEnter);
-    j.addEventListener('dragleave',dragLeave);
-    j.addEventListener('drop',Drop);
-}
+document.querySelectorAll(".fruits").forEach(area => {
+    area.addEventListener("dragover",function(e){
+        e.preventDefault();
+    })    
+})
+document.querySelectorAll(".fruits").forEach(area=>{
+    area.addEventListener("drop",function(e){
+        let data = e.dataTransfer.getData("fruitsId");
+        this.appendChild(document.getElementById(data));
+    })
+})
+
+biber.addEventListener("dragstart",function(e){
+    e.dataTransfer.setData("vegetablesId",this.id);
+})
+kok.addEventListener("dragstart",function(e){
+    e.dataTransfer.setData("vegetablesId",this.id);
+})
+pomidor.addEventListener("dragstart",function(e){
+    e.dataTransfer.setData("vegetablesId",this.id);
+})
+
+
+document.querySelectorAll(".vegetables").forEach(area => {
+    area.addEventListener("dragover",function(e){
+        e.preventDefault();
+    })    
+})
+
+
+document.querySelectorAll(".vegetables").forEach(area=>{
+    area.addEventListener("drop",function(e){
+        let data = e.dataTransfer.getData("vegetablesId");
+        this.appendChild(document.getElementById(data));
+    })
+})
 
 function Drop(){
     this.append(dragItem);
 }
 
-function dragOver(e){
-    e.preventDefault();
-    this.style.border = "2px dotted cyan"
-}
 
-function dragEnter(e){
-    e.preventDefault();
-}
-
-function dragLeave(){
-    this.style.border = "none"
-}
 
